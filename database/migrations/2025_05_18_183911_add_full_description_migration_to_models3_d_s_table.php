@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('models3ds', function (Blueprint $table) {
+        Schema::table('models3Ds', function (Blueprint $table) {
             $table->text('full_description');
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('models3_d_s', function (Blueprint $table) {
+        Schema::table('models3Ds', function (Blueprint $table) {
             $table->dropColumn('full_description');
         });
     }
