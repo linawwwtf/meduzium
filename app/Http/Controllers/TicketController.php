@@ -6,9 +6,18 @@ use App\Models\Event;
 use App\Models\Order;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\DB;
+use App\Models\TicketPrice;
 
 class TicketController extends Controller
 {
+
+        public function showTicketForm()
+{
+    $prices = TicketPrice::firstOrCreate([]);
+    $events = Event::all(); // или другая логика получения мероприятий
+    return view('buy-ticket', compact('prices', 'events'));
+}
+
     public function store()
     {
         $data = request()->validate([
@@ -17,6 +26,8 @@ class TicketController extends Controller
             'date' => 'required|date',
             'adult_tickets_count' => 'required|integer|min:1|max:10',
             'child_tickets_count' => 'required|integer|min:0|max:10',
+            'group_tickets_count' => 'sometimes|integer|min:0|max:10',
+            'school_group_count' => 'sometimes|integer|min:0|max:10',
             'events_id' => 'required|array',
             'events_id.*' => 'integer|exists:events,id'
         ]);
@@ -25,15 +36,27 @@ class TicketController extends Controller
             $dayOfWeek = date('w', strtotime($data['date']));
             $isWeekend = in_array($dayOfWeek, [0, 5, 6]);
 
-            if ($isWeekend) {
-                $adultPrice = 950;
-                $childPrice = 650;
-            } else {
-                $adultPrice = 1100;
-                $childPrice = 850;
-            }
+            $prices = TicketPrice::latest()->first() ?? new TicketPrice();
 
-            $total_price = $data['adult_tickets_count'] * $adultPrice + $data['child_tickets_count'] * $childPrice;
+            // Определяем цены
+        $pricing = [
+            'adult' => $isWeekend ? $prices->adult_weekend_price : $prices->adult_weekday_price,
+            'child' => $isWeekend ? $prices->child_weekend_price : $prices->child_weekday_price,
+            'group' => $prices->group_price,
+            'school' => $prices->school_group_price
+        ];
+
+        // Проверка на групповые билеты
+        $totalPeople = $data['adult_tickets_count'] + $data['child_tickets_count'];
+        if ($totalPeople >= $prices->group_min_people && empty($data['group_tickets_count'])) {
+            $data['group_tickets_count'] = $totalPeople;
+        }
+
+            // Расчет стоимости
+        $total_price = $data['adult_tickets_count'] * $pricing['adult'] 
+                     + $data['child_tickets_count'] * $pricing['child']
+                     + ($data['group_tickets_count'] ?? 0) * $pricing['group']
+                     + ($data['school_group_count'] ?? 0) * $pricing['school'];
 
             $data['total_price'] = $total_price;
 
@@ -41,27 +64,62 @@ class TicketController extends Controller
 
             $orderId = Order::create($data)->id;
 
-            for ($i = 0; $i < $data['adult_tickets_count']; $i++) {
-                Ticket::create([
-                    'name' => $data['name'],
-                    'email' => $data['email'],
-                    'children_ticket' => false,
-                    'uniq_identity' => sprintf('%06d', rand(0, 999999)),
-                    'order_id' => $orderId,
-                ]);
-            }
+            $this->createTickets($data, $orderId, $pricing);
 
-            for ($i = 0; $i < $data['child_tickets_count']; $i++) {
-                Ticket::create([
-                    'name' => $data['name'],
-                    'email' => $data['email'],
-                    'children_ticket' => true,
-                    'uniq_identity' => sprintf('%06d', rand(0, 999999)),
-                    'order_id' => $orderId,
-                ]);
-            }
-
-            return view('successful-payment', compact('orderId', 'eventsIds'));
+            return view('successful-payment', compact('orderId', 'eventsIds', 'pricing'));
         }, 3);
+
     }
+
+    public function createTickets($data, $orderId, $pricing) 
+    {
+        // Взрослые билеты
+    for ($i = 0; $i < $data['adult_tickets_count']; $i++) {
+        Ticket::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'type' => 'adult',
+            'price' => $pricing['adult'],
+            'uniq_identity' => sprintf('%06d', rand(0, 999999)),
+            'order_id' => $orderId,
+        ]);
+    }
+
+    // Детские билеты
+    for ($i = 0; $i < $data['child_tickets_count']; $i++) {
+        Ticket::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'type' => 'child',
+            'price' => $pricing['child'],
+            'uniq_identity' => sprintf('%06d', rand(0, 999999)),
+            'order_id' => $orderId,
+        ]);
+    }
+
+    // Групповые билеты
+    for ($i = 0; $i < ($data['group_tickets_count'] ?? 0); $i++) {
+        Ticket::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'type' => 'group',
+            'price' => $pricing['group'],
+            'uniq_identity' => sprintf('%06d', rand(0, 999999)),
+            'order_id' => $orderId,
+        ]);
+    }
+
+    // Школьные группы
+    for ($i = 0; $i < ($data['school_group_count'] ?? 0); $i++) {
+        Ticket::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'type' => 'school_group',
+            'price' => $pricing['school'],
+            'uniq_identity' => sprintf('%06d', rand(0, 999999)),
+            'order_id' => $orderId,
+        ]);
+    }
+
+}
 }

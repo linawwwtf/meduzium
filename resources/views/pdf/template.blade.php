@@ -2,76 +2,266 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Заказ №{{ $orderId }}</title>
+    <title>Билет в Медузариум №{{ $orderId }}</title>
     <style>
         @font-face {
-            font-family: 'Times New Roman';
-            src: url('{{ storage_path('fonts/Times New Roman.ttf') }}') format('truetype');
+            font-family: 'Comfortaa';
+            src: url('{{ storage_path('fonts/Comfortaa-Regular.ttf') }}') format('truetype');
         }
-
+        
         * {
-            font-family: 'Times New Roman', serif;
-            font-weight: normal;
-        }
-
-        h1, body {
-            margin: 0.25rem;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .content {
-            margin-top: 0.25rem;
-        }
-
-        ul {
-            list-style: none;
+            margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-
-        li {
-            border: 1px solid black;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
+        
+        body {
+            font-family: 'Comfortaa', Arial, sans-serif;
+            color: #1a237e;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .ticket-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(26, 35, 126, 0.2);
+            position: relative;
+            border: 1px solid #5e83e2;
+        }
+        
+        .ticket-header {
+            background: linear-gradient(135deg, #5e83e2, #1a237e);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .ticket-header h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .ticket-header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #5e83e2;
+            clip-path: path('M0,0 L100,0 L100,5 C75,10 25,10 0,5 Z');
+        }
+        
+        .ticket-meta {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background: rgba(94, 131, 226, 0.1);
+            border-bottom: 2px dashed #5e83e2;
+        }
+        
+        .meta-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            color: #5e83e2;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        .meta-value {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .ticket-body {
+            padding: 25px;
+        }
+        
+        .order-number {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #1a237e;
+        }
+        
+        .buy-date {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        
+        .ticket-list {
+            list-style: none;
+        }
+        
+        .ticket-item {
+            border: 2px solid #5e83e2;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: rgba(94, 131, 226, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ticket-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #5e83e2, #9747FF);
+        }
+        
+        .ticket-type {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1a237e;
+        }
+        
+        .ticket-number {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .events-title {
+            font-size: 16px;
+            color: #5e83e2;
+            margin: 15px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #5e83e2;
+        }
+        
+        .events-list {
+            list-style: none;
+            padding-left: 15px;
+        }
+        
+        .event-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .event-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #9747FF;
+            font-size: 20px;
+            line-height: 1;
+        }
+        
+        .watermark {
+            position: absolute;
+            opacity: 0.1;
+            font-size: 120px;
+            color: #1a237e;
+            transform: rotate(-30deg);
+            z-index: 0;
+            top: 30%;
+            left: 10%;
+            pointer-events: none;
+            font-weight: bold;
+        }
+        
+        .barcode {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px dashed #ccc;
+            font-family: monospace;
+            font-size: 24px;
+            letter-spacing: 3px;
+        }
+        
+        /* Альтернативный вариант без SVG */
+        .wave-divider {
+            height: 20px;
+            background: #5e83e2;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wave-divider::after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transform: translateY(50%);
         }
     </style>
 </head>
 <body>
-<div>
-    <h2 style="text-align: center">Медузариум</h2>
-    <div style="text-align: center;">
-        <span
-            style="display: inline-block; margin-right: 130px; font-size: 12px; text-align: center;">Дата посещения:<br>{{ $visitDate }}</span>
-        <span
-            style="display: inline-block; font-size: 12px; text-align: center;">Общая цена:<br>{{ $totalPrice }}</span>
-    </div>
-</div>
-<h1>Заказ №{{ $orderId }}</h1>
-<p>Дата покупки: {{ $buyDate }}</p>
-<div class="content">
-    <ul>
-        @foreach($ticketsData as $ticket)
-            <li>
-                <span>Тип: {{ $ticket->children_ticket ? 'Детский' : 'Взрослый' }} билет</span><br>
-                <span>Номер билета: {{ $ticket->uniq_identity }}</span>
-                <div>
+    <div class="ticket-container">
+        <div class="watermark">Медузариум</div>
+        
+        <div class="ticket-header">
+            <h2>Медузариум</h2>
+            <!-- Альтернативный разделитель -->
+            <div class="wave-divider"></div>
+        </div>
+        
+        <div class="ticket-meta">
+            <div class="meta-item">
+                <span class="meta-label">Дата посещения</span>
+                <span class="meta-value">{{ $visitDate }}</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Общая стоимость</span>
+                <span class="meta-value">{{ $totalPrice }} руб</span>
+            </div>
+        </div>
+        
+        <div class="ticket-body">
+            <div class="order-number">Билет №{{ $orderId }}</div>
+            <div class="buy-date">Дата покупки: {{ $buyDate }}</div>
+            
+            <ul class="ticket-list">
+                @foreach($ticketsData as $ticket)
+                <li class="ticket-item">
+                    <div class="ticket-type">
+                        {{ $ticket->children_ticket ? 'Детский билет' : 'Взрослый билет' }}
+                    </div>
+                    <span class="ticket-number">Номер билета: {{ $ticket->uniq_identity }}</span>
+                    
                     @if(count($eventsTitles) > 0)
-                        <h4>Мероприятия:</h4>
-                        <ul>
+                        <h4 class="events-title">Мероприятия:</h4>
+                        <ul class="events-list">
                             @foreach($eventsTitles as $title)
-                                <li>
-                                    <span>{{ $title }}</span>
-                                </li>
+                                <li class="event-item">{{ $title }}</li>
                             @endforeach
                         </ul>
                     @endif
-                </div>
-            </li>
-        @endforeach
-    </ul>
-</div>
+                </li>
+                @endforeach
+            </ul>
+            
+            <div class="barcode">
+                {{ strtoupper(substr(md5($orderId), 0, 12)) }}
+            </div>
+        </div>
+    </div>
 </body>
 </html>

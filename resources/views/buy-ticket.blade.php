@@ -1,55 +1,95 @@
 @extends('layouts.main')
 
+@section('title', 'Купить билет')
+
 @section('content')
     <section class="all buy-ticket">
         <div class="container">
-            <h1>Купить билет</h1>
-            <div>
+            <h1>Купить билет в медузариум</h1>
+            <div class="ticket-container fade-in">
                 <form action="{{ route('ticket.buy') }}" method="POST" class="ticket-buy-wrapper">
                     @csrf
                     @method("POST")
-                    <div>
-                        <h4>Мероприятия:</h4>
+                    <div class="events-section">
+                        <h4>Дополнительные мероприятия:</h4>
                         <div class="events">
-
+                            <!-- Сюда будут добавляться мероприятия -->
                         </div>
-                        <span class="add-event">+ добавить мероприятие</span>
+                        <span class="add-event">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            добавить мероприятие
+                        </span>
                     </div>
+                    
                     <div class="buy-ticket-form">
-                        <label>
-                            <span>ФИО</span>
-                            <input type="text" placeholder="Иванов Иван Иванович" name="name">
-                        </label>
-                        <label>
-                            <span>Email</span>
-                            <input type="email" placeholder="example@mail.ru" name="email">
-                        </label>
-                        <label>
-                            <span>Дата посещения</span>
-                            <input type="date" id="dateInput" name="date">
-                        </label>
+                        <div class="form-group">
+                            <label for="name">
+                                <span>ФИО</span>
+                                <input type="text" id="name" placeholder="Иванов Иван Иванович" name="name" required>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">
+                                <span>Email</span>
+                                <input type="email" id="email" placeholder="example@mail.ru" name="email" required>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dateInput">
+                                <span>Дата посещения</span>
+                                <input type="date" id="dateInput" name="date" required>
+                            </label>
+                        </div>
+                        
                         <div class="tickets-wrapper">
                             <h3>Добавить билет</h3>
                             <div class="tickets-btns">
-                                <button class="white-btn" id="adult-btn">+ взрослый</button>
-                                <button class="white-btn" id="child-btn">+ детский</button>
+                                <button type="button" class="white-btn" id="adult-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    взрослый
+                                </button>
+                                <button type="button" class="white-btn" id="child-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    детский
+                                </button>
+                                <button type="button" class="white-btn" id="group-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    групповой
+                                </button>
+                                <button type="button" class="white-btn" id="school-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    школьный
+                                </button>
                             </div>
-                            <input type="hidden" name="adult_tickets_count" id="adultsCount" value="1">
+                            <input type="hidden" name="adult_tickets_count" id="adultsCount" value="0">
                             <input type="hidden" name="child_tickets_count" id="childrenCount" value="0">
+                            <input type="hidden" name="group_tickets_count" id="groupCount" value="0">
+                            <input type="hidden" name="school_group_count" id="schoolCount" value="0">
                             <div class="price-button-wrapper">
-                                <span class="total-price-wrapper">Общая сумма: <span><b
-                                            id="total-price">850</b> руб</span></span>
-                                <button class="custom-button" type="submit">К оплате</button>
+                                <div class="total-price-wrapper">
+                                    Общая сумма: <span><b id="total-price">0</b> руб</span>
+                                </div>
+                                <button type="submit" class="custom-button">Перейти к оплате</button>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <h4>Билеты:</h4>
+                    
+                    <div class="tickets-section">
+                        <h4>Ваши билеты:</h4>
                         <ul class="tickets">
-                            <li class="main-ticket">
-                                <span>Взрослый билет</span>
-                                <span id="mainTicketPrice">+ 850 руб</span>
-                            </li>
+                            <!-- Сюда будут добавляться билеты -->
                         </ul>
                     </div>
                 </form>
@@ -57,47 +97,87 @@
         </div>
     </section>
 
+    <!-- Модальное окно выбора мероприятия -->
     <div class="modal-wrapper">
         <div class="modal">
-            <h3>Добавить мероприятие</h3>
+            <h3>Выберите мероприятие</h3>
             <div class="close-wrapper"><span class="close-button"></span></div>
             <select name="event_id" class="event-select">
                 @foreach($events as $event)
                     <option value="{{ $event->id }}">{{ $event->title }}</option>
                 @endforeach
             </select>
-            <div>
+            <div class="event-descriptions">
                 @foreach($events as $event)
-                    <p class="event-description">{{ $event->description }}</p>
+                    <div class="event-description" data-event-id="{{ $event->id }}">
+                        <p>{{ $event->description }}</p>
+                        <div class="event-price">+100 руб к каждому билету</div>
+                    </div>
                 @endforeach
             </div>
-
-            <button class="custom-button add-event-button">Добавить</button>
+            <button type="button" class="custom-button add-event-button">Добавить мероприятие</button>
         </div>
     </div>
 
+    <!-- Шаблоны для динамического добавления элементов -->
     <template id="adult-ticket">
         <li class="ticket" data-type="adult">
             <span>Взрослый билет</span>
-            <span class="adult-ticket-price">+ 850 руб</span>
-            <div class="delete-ticket">Удалить</div>
+            <span class="ticket-price adult-ticket-price">{{ $prices->adult_weekday_price }} руб</span>
+            <div class="delete-ticket">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
         </li>
     </template>
 
     <template id="child-ticket">
         <li class="ticket" data-type="child">
             <span>Детский билет</span>
-            <span class="child-ticket-price">+ 650 руб</span>
-            <div class="delete-ticket">Удалить</div>
+            <span class="ticket-price child-ticket-price">{{ $prices->child_weekday_price }} руб</span>
+            <div class="delete-ticket">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </li>
+    </template>
+
+    <template id="group-ticket">
+        <li class="ticket" data-type="group">
+            <span>Групповой билет (от {{ $prices->group_min_people }} чел.)</span>
+            <span class="ticket-price group-ticket-price">{{ $prices->group_price }} руб</span>
+            <div class="delete-ticket">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </li>
+    </template>
+
+    <template id="school-ticket">
+        <li class="ticket" data-type="school">
+            <span>Школьная группа</span>
+            <span class="ticket-price school-ticket-price">{{ $prices->school_group_price }} руб</span>
+            <div class="delete-ticket">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
         </li>
     </template>
 
     <template id="event">
-        <div class="event">
+        <div class="event" data-event-id="">
             <span class="event-name"></span>
-            <span>+ 100 руб × кол-во билетов </span>
-            <input type="hidden" name="events_id[]" value="0" class="event-input">
-            <div class="delete-event">Удалить</div>
+            <span class="event-additional-price">+100 руб × кол-во билетов</span>
+            <input type="hidden" name="events_id[]" value="" class="event-input">
+            <div class="delete-event">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
         </div>
     </template>
 
@@ -105,14 +185,147 @@
         document.addEventListener("DOMContentLoaded", () => {
             const adultBtn = document.getElementById('adult-btn');
             const childBtn = document.getElementById('child-btn');
+            const groupBtn = document.getElementById('group-btn');
+            const schoolBtn = document.getElementById('school-btn');
+            
             const adultTicketsCount = document.getElementById('adultsCount');
             const childTicketsCount = document.getElementById('childrenCount');
+            const groupTicketsCount = document.getElementById('groupCount');
+            const schoolTicketsCount = document.getElementById('schoolCount');
+            
             const tickets = document.querySelector('.tickets');
             const totalPrice = document.getElementById('total-price');
 
-            let adultPrice = 1100;
-            let childPrice = 950;
+            // Получаем текущие цены из базы
+            const prices = {
+                adult: { 
+                    weekday: {{ $prices->adult_weekday_price }}, 
+                    weekend: {{ $prices->adult_weekend_price }} 
+                },
+                child: { 
+                    weekday: {{ $prices->child_weekday_price }}, 
+                    weekend: {{ $prices->child_weekend_price }} 
+                },
+                group: {{ $prices->group_price }},
+                school: {{ $prices->school_group_price }},
+                minGroup: {{ $prices->group_min_people }}
+            };
 
+            // Проверяем день недели для определения цены
+            const checkDayOfWeek = () => {
+                const date = new Date(dateInput.value);
+                const dayOfWeek = date.getDay();
+                return [5, 6, 0].includes(dayOfWeek); // Пятница, суббота, воскресенье
+            };
+
+            // Получаем актуальные цены
+            const getCurrentPrices = () => {
+                const isWeekend = checkDayOfWeek();
+                return {
+                    adult: isWeekend ? prices.adult.weekend : prices.adult.weekday,
+                    child: isWeekend ? prices.child.weekend : prices.child.weekday,
+                    group: prices.group,
+                    school: prices.school
+                };
+            };
+
+            // Обновляем отображение цен
+            const updatePricesDisplay = () => {
+                const currentPrices = getCurrentPrices();
+                
+                document.querySelectorAll('.adult-ticket-price').forEach(el => {
+                    el.textContent = currentPrices.adult + ' руб';
+                });
+                
+                document.querySelectorAll('.child-ticket-price').forEach(el => {
+                    el.textContent = currentPrices.child + ' руб';
+                });
+                
+                document.querySelectorAll('.group-ticket-price').forEach(el => {
+                    el.textContent = currentPrices.group + ' руб';
+                });
+                
+                document.querySelectorAll('.school-ticket-price').forEach(el => {
+                    el.textContent = currentPrices.school + ' руб';
+                });
+            };
+
+            // Обновляем общую стоимость
+            const updateTotalPrice = () => {
+                const currentPrices = getCurrentPrices();
+                const eventsCount = document.querySelectorAll('.event').length;
+                const totalPeople = parseInt(adultTicketsCount.value) + parseInt(childTicketsCount.value);
+                
+                // Автоматически применяем групповую скидку если достигнуто минимальное количество
+                if (totalPeople >= prices.minGroup && parseInt(groupTicketsCount.value) === 0) {
+                    groupTicketsCount.value = totalPeople;
+                    // Обновляем список билетов
+                    // Здесь нужно добавить логику для обновления UI
+                }
+                
+                const total = 
+                    adultTicketsCount.value * currentPrices.adult +
+                    childTicketsCount.value * currentPrices.child +
+                    groupTicketsCount.value * currentPrices.group +
+                    schoolTicketsCount.value * currentPrices.school +
+                    eventsCount * 100 * (parseInt(adultTicketsCount.value) + parseInt(childTicketsCount.value) + parseInt(groupTicketsCount.value) + parseInt(schoolTicketsCount.value));
+                
+                totalPrice.textContent = total;
+            };
+
+            // Добавляем билет в список
+            const addTicket = (type) => {
+                const template = document.getElementById(`${type}-ticket`);
+                const clone = template.content.cloneNode(true);
+                tickets.appendChild(clone);
+                
+                const ticketElement = tickets.lastElementChild;
+                const deleteBtn = ticketElement.querySelector('.delete-ticket');
+                
+                deleteBtn.addEventListener('click', () => {
+                    // Уменьшаем счетчик соответствующего типа билета
+                    document.getElementById(`${type}Count`).value = 
+                        parseInt(document.getElementById(`${type}Count`).value) - 1;
+                    
+                    ticketElement.remove();
+                    updateTotalPrice();
+                });
+            };
+
+            // Обработчики кнопок
+            adultBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (document.querySelectorAll('.ticket').length >= 10) return;
+                adultTicketsCount.value = parseInt(adultTicketsCount.value) + 1;
+                addTicket('adult');
+                updateTotalPrice();
+            });
+
+            childBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (document.querySelectorAll('.ticket').length >= 10) return;
+                childTicketsCount.value = parseInt(childTicketsCount.value) + 1;
+                addTicket('child');
+                updateTotalPrice();
+            });
+
+            groupBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (document.querySelectorAll('.ticket').length >= 10) return;
+                groupTicketsCount.value = parseInt(groupTicketsCount.value) + 1;
+                addTicket('group');
+                updateTotalPrice();
+            });
+
+            schoolBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (document.querySelectorAll('.ticket').length >= 10) return;
+                schoolTicketsCount.value = parseInt(schoolTicketsCount.value) + 1;
+                addTicket('school');
+                updateTotalPrice();
+            });
+
+            // Остальной код (модальное окно мероприятий и т.д.)
             const eventAddButton = document.querySelector('.add-event');
             const events = document.querySelector('.events');
             const eventSelect = document.querySelector('.event-select');
@@ -132,7 +345,7 @@
                         item.classList.add('show-desc');
                     }
                 });
-            })
+            });
 
             eventAddButton.addEventListener('click', function () {
                 modal.classList.add('open-modal');
@@ -144,7 +357,7 @@
 
             modal.addEventListener('click', function (event) {
                 if (event.target === modal) {
-                    modal.classList.remove(modalShow);
+                    modal.classList.remove('open-modal');
                 }
             });
 
@@ -158,7 +371,7 @@
                 const eventContent = eventTemplate.content.cloneNode(true);
                 const eventDivTitle = eventContent.querySelector('.event-name');
                 eventDivTitle.textContent = eventTitle;
-                const eventInput = eventContent.querySelector('.event-input')
+                const eventInput = eventContent.querySelector('.event-input');
                 eventInput.value = eventId;
 
                 events.appendChild(eventContent);
@@ -168,117 +381,27 @@
                 eventDeleteButtons.forEach((button, index) => {
                     button.addEventListener('click', function () {
                         eventsList[index].remove();
-                        updatePrice();
+                        updateTotalPrice();
                     });
                 });
 
                 modal.classList.remove('open-modal');
-
-                updatePrice();
+                updateTotalPrice();
             });
-
 
             const dateInput = document.getElementById('dateInput');
             const today = new Date().toISOString().split('T')[0];
             dateInput.value = today;
             dateInput.min = today;
 
-            const changeTicketsValue = () => {
-                const mainTicketPrice = document.getElementById('mainTicketPrice');
-                mainTicketPrice.textContent = '+ ' + adultPrice.toString() + ' руб';
-
-                const adultTicketsPrice = document.querySelectorAll('.adult-ticket-price');
-                const childTicketsPrice = document.querySelectorAll('.child-ticket-price');
-
-                adultTicketsPrice.forEach((ticket) => {
-                    ticket.textContent = '+ ' + adultPrice.toString() + ' руб'
-                })
-
-                childTicketsPrice.forEach((ticket) => {
-                    ticket.textContent = '+ ' + childPrice.toString() + ' руб'
-                })
-
-                updatePrice();
-            }
-
-            const checkDayOfWeek = () => {
-                const date = new Date(dateInput.value);
-                const dayOfWeek = date.getDay();
-                if ([5, 6, 0].includes(dayOfWeek)) {
-                    adultPrice = 1100;
-                    childPrice = 950;
-                } else {
-                    adultPrice = 850;
-                    childPrice = 650;
-                }
-            }
-
             dateInput.addEventListener('change', function () {
-                checkDayOfWeek();
-                changeTicketsValue();
-                updatePrice();
+                updatePricesDisplay();
+                updateTotalPrice();
             });
 
-            const adultTemplate = document.getElementById('adult-ticket');
-            const childTemplate = document.getElementById('child-ticket');
-
-            const updateTicketsList = (isAdult = true) => {
-                let newListItem;
-
-                if (isAdult) {
-                    newListItem = adultTemplate.content.cloneNode(true);
-                } else {
-                    newListItem = childTemplate.content.cloneNode(true);
-                }
-
-                const ticketElement = newListItem.querySelector('.ticket');
-                tickets.appendChild(newListItem);
-                const deleteButton = ticketElement.querySelector('.delete-ticket');
-                deleteButton.addEventListener('click', function () {
-                    const type = ticketElement.dataset.type;
-                    ticketElement.remove();
-                    if (type === 'adult') {
-                        const oldValue = parseInt(adultTicketsCount.value);
-                        adultTicketsCount.value = oldValue - 1;
-                    } else {
-                        const oldValue = parseInt(childTicketsCount.value);
-                        childTicketsCount.value = oldValue - 1;
-                    }
-                    updatePrice();
-                });
-            }
-
-            const updatePrice = () => {
-                const eventsCount = document.querySelectorAll('.event').length;
-
-                totalPrice.textContent = (adultTicketsCount.value * adultPrice + childTicketsCount.value * childPrice + eventsCount * 100 * (parseInt(adultTicketsCount.value) + parseInt(childTicketsCount.value))).toString();
-            }
-
-            adultBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                const oldValue = parseInt(adultTicketsCount.value);
-                const ticketsCount = document.querySelectorAll('.ticket').length;
-                if (ticketsCount >= 10) return;
-                adultTicketsCount.value = oldValue + 1;
-                updateTicketsList();
-                updatePrice();
-                changeTicketsValue()
-            });
-
-            childBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                const oldValue = parseInt(childTicketsCount.value);
-                const ticketsCount = document.querySelectorAll('.ticket').length;
-                if (ticketsCount >= 10) return;
-                childTicketsCount.value = oldValue + 1;
-                updateTicketsList(false);
-                updatePrice();
-                changeTicketsValue();
-            });
-
-            checkDayOfWeek();
-            changeTicketsValue();
-            updatePrice();
+            // Инициализация
+            updatePricesDisplay();
+            updateTotalPrice();
         });
     </script>
 @endsection

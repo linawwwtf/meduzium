@@ -11,11 +11,7 @@ class EventController extends Controller
 {
     public function index(Request $request)
     {
-        $events = Event::query()
-        ->when($request->type, fn($q) => $q->where('type', $request->type))
-        ->orderBy('start_date')
-        ->paginate(10);
-
+        $events = Event::latest()->paginate(10);
         return view('admin.events.index', compact('events'));
     }
 

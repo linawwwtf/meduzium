@@ -1,0 +1,449 @@
+:root {
+    --primary-dark: #1a237e;
+    --primary-medium: #5e83e2;
+    --primary-light: #9747FF;
+    --secondary-color: #6c757d;
+    --danger-color: #f44336;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --bg-dark: #0a1a2a;
+    --bg-light: #1a3a5a;
+    --text-light: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.6);
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Базовые стили */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Боковая панель */
+.admin-sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, var(--primary-dark) 0%, var(--bg-light) 100%);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.admin-logo {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.admin-logo img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.admin-logo span {
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.admin-nav {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+}
+
+.admin-nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 12px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.admin-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.admin-nav a.active {
+    background: var(--primary-medium);
+    font-weight: 600;
+}
+
+.admin-nav a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.admin-logout {
+    padding: 0 15px;
+    margin-top: 20px;
+}
+
+.admin-logout button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    padding: 12px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.admin-logout button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-logout button i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Основное содержимое */
+.admin-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(10, 26, 42, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: rgba(26, 35, 126, 0.3);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-header h1 {
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.8rem;
+    margin: 0;
+    color: white;
+}
+
+.admin-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.admin-user span {
+    font-weight: 500;
+}
+
+.admin-user i {
+    font-size: 1.5rem;
+    color: var(--primary-medium);
+}
+
+.admin-main {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+/* Стили для карточек */
+.review-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--primary-medium);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.review-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.review-card h3 {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.review-card span {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--primary-medium);
+    font-weight: 500;
+}
+
+.review-card p {
+    margin: 0;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Стили для страницы обратной связи */
+.admin-feedback {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.admin-empty {
+    text-align: center;
+    padding: 50px;
+    color: var(--text-muted);
+}
+
+.admin-empty i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--primary-medium);
+}
+
+.admin-empty p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.feedback-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border-radius: 30px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+.filter-box select {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.review-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.review-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.review-actions button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.review-actions button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-mark:hover {
+    color: var(--success-color) !important;
+}
+
+.btn-delete:hover {
+    color: var(--danger-color) !important;
+}
+
+.review-contact {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.review-contact span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-muted);
+}
+
+.review-contact i {
+    color: var(--primary-medium);
+}
+
+.review-read {
+    opacity: 0.7;
+    border-left-color: var(--secondary-color);
+}
+
+.review-read h3 {
+    color: var(--text-muted);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.pagination .page-link {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    margin: 0 5px;
+    border-radius: 5px !important;
+    padding: 8px 15px;
+}
+
+.pagination .page-item.active .page-link {
+    background: var(--primary-medium);
+}
+
+.pagination .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .admin-sidebar {
+        width: 70px;
+        overflow: hidden;
+    }
+    
+    .admin-logo span, .admin-nav a span {
+        display: none;
+    }
+    
+    .admin-nav a {
+        justify-content: center;
+        padding: 15px 0;
+    }
+    
+    .admin-nav a i {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+    
+    .admin-logout button span {
+        display: none;
+    }
+    
+    .admin-logout button {
+        justify-content: center;
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        flex-direction: column;
+    }
+    
+    .admin-sidebar {
+        width: 100%;
+        flex-direction: row;
+        padding: 10px 0;
+    }
+    
+    .admin-logo {
+        display: none;
+    }
+    
+    .admin-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0 10px;
+    }
+    
+    .admin-nav a {
+        padding: 10px 15px;
+        white-space: nowrap;
+    }
+    
+    .admin-logout {
+        margin: 0;
+        padding: 0 10px;
+    }
+    
+    .admin-logout button {
+        padding: 10px;
+    }
+    
+    .admin-header {
+        padding: 15px;
+    }
+    
+    .admin-header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .admin-main {
+        padding: 15px;
+    }
+}
