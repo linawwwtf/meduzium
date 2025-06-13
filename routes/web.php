@@ -49,8 +49,12 @@ Route::get('/suggest-image', [GalleryController::class, 'showSuggestForm'])->nam
 Route::post('/suggest-image', [GalleryController::class, 'storeSuggestion'])->name('suggest-image.store');
 
 Route::get('/reviews', [ReviewController::class, 'indexUser'])->name('reviews.index');
-Route::get('/add-review', [ReviewController::class, 'create'])->name('review.create');
+Route::get('/add-review', [ReviewController::class, 'create'])->name('reviews.create');
 Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+Route::get('/{id}', [ReviewController::class, 'show'])->name('reviews.show');
+    Route::get('/{id}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::put('/{id}', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/{id}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
 // Группа для админа
 Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function () {

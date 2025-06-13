@@ -6,6 +6,7 @@ use App\Models\Gallery;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\TicketPrice;
+use App\Models\Review;
 
 class HomeController extends Controller
 {
@@ -70,6 +71,11 @@ class HomeController extends Controller
         $gallery = Gallery::all();
         $prices = TicketPrice::firstOrCreate([]);
 
-        return view('welcome', compact('events', 'gallery', 'prices', 'filters'));
+        $reviews = Review::where('status', 'accepted')
+               ->orderBy('created_at', 'desc')
+               ->take(3)
+               ->get();
+
+        return view('welcome', compact('events', 'reviews', 'gallery', 'prices', 'filters'));
     }
 }

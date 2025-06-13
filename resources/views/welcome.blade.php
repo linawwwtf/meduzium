@@ -52,9 +52,10 @@
             </div>
             
             <div class="about__content">
-                <p class="about__text">Медузиум - это единственный проект в России с уникальной коллекцией различных видов медуз, который покажет вам разнообразие морского мира.</p>
-                <p class="about__text">Благодаря современному оборудованию и особому освещению, вы получаете полную иллюзию погружения в глубины океана.</p>
-                <p class="about__text">Приходите, и вы узнаете, сколько известных человечеству видов медуз живет в океане, какие из них смертельно ядовитые, а какая медуза вообще единственное бессмертное существо на планете.</p>
+                <p class="about__text">Медузиум — это первый и единственный в России специализированный медузариум, где собрана уникальная коллекция медуз со всего мира. Наш проект — это не просто выставка, а полноценное образовательное и эстетическое пространство, позволяющее погрузиться в загадочный и малоизученный мир медуз.</p>
+                <p class="about__text">Мы собрали десятки видов этих удивительных существ — от крошечных и почти невидимых до крупных и ярких представителей глубин. Некоторые из них кажутся пришельцами из других миров, но на самом деле они жили на планете задолго до появления динозавров.</p>
+                <p class="about__text">Наши аквариумы оснащены современными системами жизнеобеспечения, позволяющими создать условия, максимально приближённые к природным. Это не только красиво, но и важно для здоровья наших подопечных.</p>
+                <p class="about__text"><strong>Приходите, и вы откроете для себя мир, который словно парит между наукой и фантастикой!</strong></p>
             </div>
         </div>
     </section>
@@ -274,6 +275,149 @@
         </div>
     </div>
 </section>
+
+<!-- Reviews Section -->
+<section class="reviews-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-header__title">Отзывы посетителей</h2>
+            <div class="section-header__divider"></div>
+        </div>
+        
+        <div class="reviews-grid">
+            @foreach($reviews as $review)
+            <div class="review-card">
+                <div class="review-card__header">
+                    <div class="review-card__author">{{ $review->name }}</div>
+                    <div class="review-card__rating">
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($i <= $review->rating)
+                                <i class="fas fa-star">!</i>
+                            @else
+                                <i class="far fa-star">!</i>
+                            @endif
+                        @endfor
+                    </div>
+                </div>
+                <div class="review-card__content">
+                    <p>{{ $review->content }}</p>
+                </div>
+                <div class="review-card__date">
+                    {{ $review->created_at->format('d.m.Y') }}
+                </div>
+            </div>
+            @endforeach
+        </div>
+        
+        <div class="reviews-actions">
+            <a href="{{ route('reviews.create') }}" class="btn btn--primary">
+                <i class="fas fa-pen"></i> Оставить отзыв
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Reviews Section Styles */
+    .reviews-section {
+        padding: 80px 0;
+    }
+    
+    .section-header__subtitle {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+    
+    .review-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 25px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .review-card__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .review-card__author {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: white;
+    }
+    
+    .review-card__rating {
+        color: #FFC107;
+    }
+    
+    .review-card__content {
+        margin-bottom: 15px;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+    }
+    
+    .review-card__date {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.6);
+        text-align: right;
+    }
+    
+    .reviews-actions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+    
+    .btn--outline {
+        background: transparent;
+        border: 2px solid #5e83e2;
+        color: #5e83e2;
+    }
+    
+    .btn--outline:hover {
+        background: rgba(94, 131, 226, 0.1);
+    }
+    
+    .btn i {
+        margin-right: 8px;
+    }
+    
+    @media (max-width: 768px) {
+        .reviews-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .reviews-actions {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .reviews-actions .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
 
     <!-- Contacts Section -->
     <section class="contacts" id="contact">

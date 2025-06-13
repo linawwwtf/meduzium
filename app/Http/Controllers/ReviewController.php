@@ -20,8 +20,12 @@ class ReviewController extends Controller
 
     public function indexUser()
     {
-        $reviews = Review::where('status', 'accepted')->paginate(10);
-        return view('reviews', compact('reviews'));
+        $reviews = Review::where('status', 'accepted')
+        ->orderBy('created_at', 'desc')
+        ->take(3)
+        ->get();
+    
+        return view('welcome', compact('reviews'));
     }
 
     public function create()
