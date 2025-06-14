@@ -44,8 +44,6 @@ class GalleryController extends Controller
     // Обновление галереи
     public function updateGallery(Request $request): RedirectResponse
     {
-        dd($request->all());
-
         $data = request()->validate([
             'image_url1' => 'nullable|string',
             'image_url2' => 'nullable|string',

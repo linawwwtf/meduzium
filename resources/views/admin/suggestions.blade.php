@@ -399,7 +399,7 @@
 
                 console.log(e.dataTransfer.files.length);
 
-                if (e.dataTransfer.files.length > 0) {
+                if (e.dataTransfer.files.length > 1) {
                     // Обработка загрузки файла
                     fileInputs[index].files = e.dataTransfer.files;
                     handleFiles(e.dataTransfer.files, index);
