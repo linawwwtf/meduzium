@@ -14,18 +14,18 @@
             padding: 0;
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         /* Стили секции */
         .all {
             padding: 80px 0;
         }
-        
+
         .add-suggestion__wrapper {
             max-width: 600px;
             margin: 0 auto;
@@ -36,7 +36,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
-        
+
         .add-suggestion__wrapper h1 {
             font-family: 'Comfortaa', cursive;
             font-size: 2.2rem;
@@ -45,13 +45,13 @@
             color: #fff;
             font-weight: 600;
         }
-        
+
         /* Стили формы */
         form {
             display: flex;
             flex-direction: column;
         }
-        
+
         /* Область загрузки */
         .upload-container {
             position: relative;
@@ -68,22 +68,22 @@
             margin-bottom: 25px;
             background: rgba(255, 255, 255, 0.03);
         }
-        
+
         .upload-container:hover {
             border-color: #5e83e2;
             background: rgba(94, 131, 226, 0.05);
         }
-        
+
         .upload-container.dragover {
             border-color: #5e83e2;
             background: rgba(94, 131, 226, 0.1);
             transform: translateY(-3px);
         }
-        
+
         #fileInput {
             display: none;
         }
-        
+
         .upload-text {
             font-size: 1.1rem;
             color: rgba(255, 255, 255, 0.8);
@@ -91,11 +91,11 @@
             padding: 0 20px;
             transition: all 0.3s ease;
         }
-        
+
         .upload-container:hover .upload-text {
             color: #fff;
         }
-        
+
         /* Предпросмотр изображения */
         #preview {
             position: absolute;
@@ -108,11 +108,11 @@
             transition: opacity 0.3s ease;
             z-index: 1;
         }
-        
+
         #preview.visible {
             opacity: 1;
         }
-        
+
         /* Стили для ошибок */
         .error {
             color: #ff6b6b;
@@ -123,7 +123,7 @@
             text-align: center;
             font-size: 0.9rem;
         }
-        
+
         /* Кнопка отправки */
         .custom-button {
             background: #5e83e2;
@@ -142,51 +142,51 @@
             align-self: center;
             width: auto;
         }
-        
+
         .custom-button:hover {
             background: #4a6bc5;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         /* Анимации */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        
+
         /* Адаптивность */
         @media (max-width: 768px) {
             .all {
                 padding: 40px 0;
             }
-            
+
             .add-suggestion__wrapper {
                 padding: 30px 20px;
             }
-            
+
             .add-suggestion__wrapper h1 {
                 font-size: 1.8rem;
             }
-            
+
             .upload-container {
                 height: 250px;
             }
         }
-        
+
         @media (max-width: 480px) {
             .add-suggestion__wrapper {
                 padding: 25px 15px;
             }
-            
+
             .add-suggestion__wrapper h1 {
                 font-size: 1.5rem;
             }
-            
+
             .upload-text {
                 font-size: 1rem;
             }
-            
+
             .custom-button {
                 padding: 12px 25px;
                 font-size: 0.9rem;
@@ -209,6 +209,11 @@
                     @error('image')
                     <div class="error">{{ $message }}</div>
                     @enderror
+                    @if(session('success'))
+                        <div style="text-align: center;">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <button type="submit" class="custom-button">Отправить</button>
                 </form>
             </div>
@@ -255,19 +260,19 @@
             function handleFiles(files) {
                 if (files.length > 0) {
                     const file = files[0];
-                    
+
                     // Проверка типа файла
                     if (!file.type.startsWith('image/')) {
                         alert('Пожалуйста, выберите изображение (JPG, PNG).');
                         return;
                     }
-                    
+
                     // Проверка размера файла (5MB)
                     if (file.size > 5 * 1024 * 1024) {
                         alert('Файл слишком большой. Максимальный размер: 5MB.');
                         return;
                     }
-                    
+
                     const reader = new FileReader();
                     reader.onload = (e) => {
                         preview.src = e.target.result;

@@ -6,6 +6,8 @@
     <section class="all">
         <div class="container">
             <div class="reviews">
+                <h2>Новые отзывы</h2>
+                <a href="{{ route('admin.reviews.archive') }}">Архивные отзывы</a>
                 @foreach ($reviews as $review)
                     <div class="review-card">
                         <h3>{{$review->name}}</h3>
@@ -31,6 +33,7 @@
                         </div>
                     </div>
                 @endforeach
+                {{ $reviews->links() }}
             </div>
         </div>
     </section>

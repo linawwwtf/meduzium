@@ -158,11 +158,11 @@
             .all {
                 padding: 40px 0;
             }
-            
+
             h1 {
                 font-size: 2rem;
             }
-            
+
             .add-review {
                 padding: 30px 20px;
             }
@@ -172,7 +172,7 @@
             h1 {
                 font-size: 1.8rem;
             }
-            
+
             .star {
                 font-size: 1.8rem;
             }
@@ -205,6 +205,11 @@
                         <span>Текст отзыва</span>
                         <textarea name="content" rows="10" cols="30" required></textarea>
                     </label>
+                    @if(session('success'))
+                        <div style="text-align: center;">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <button type="submit" class="btn">Отправить</button>
                 </form>
             </div>
@@ -235,7 +240,7 @@
                 // Добавляем hover эффект
                 star.addEventListener('mouseover', function() {
                     const hoverValue = this.getAttribute('data-value');
-                    
+
                     stars.forEach((s, index) => {
                         if (index < hoverValue) {
                             s.style.color = 'var(--warning-color)';
@@ -245,7 +250,7 @@
 
                 star.addEventListener('mouseout', function() {
                     const currentValue = ratingInput.value;
-                    
+
                     stars.forEach((s, index) => {
                         if (index >= currentValue) {
                             s.style.color = 'var(--text-muted)';

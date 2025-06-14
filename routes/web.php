@@ -69,6 +69,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function ()
     Route::delete('/suggestions/{id}', [GalleryController::class, 'deleteSuggestion'])->name('suggestions.delete');
 
     Route::get('/reviews', [ReviewController::class, 'indexAdmin'])->name('reviews.index');
+    Route::get('/reviews/archive', [ReviewController::class, 'indexArchive'])->name('reviews.archive');
     Route::patch('/reviews/{review}', [ReviewController::class, 'updateStatus'])->name('reviews.updateStatus');
     Route::delete('/reviews/{review}', [ReviewController::class, 'delete'])->name('reviews.delete');
 

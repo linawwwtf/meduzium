@@ -14,8 +14,18 @@ class ReviewController extends Controller
             return redirect()->back();
         }
 
-        $reviews = Review::where('status', 'validation')->paginate(10);
+        $reviews = Review::where('status', 'validation')->paginate(1);
         return view('admin.reviews.index', compact('reviews'));
+    }
+
+    public function indexArchive()
+    {
+        if (Auth::user()->role != 'admin') {
+            return redirect()->back();
+        }
+
+        $archives = Review::where('status', 'accepted')->paginate(1);
+        return view('admin.reviews.archive', compact('archives'));
     }
 
     public function indexUser()
@@ -24,7 +34,7 @@ class ReviewController extends Controller
         ->orderBy('created_at', 'desc')
         ->take(3)
         ->get();
-    
+
         return view('welcome', compact('reviews'));
     }
 

@@ -29,6 +29,6 @@ class SuggestionImagesController extends Controller
 
         SuggestionImage::create(['image_url' => $filePath]);
 
-        return back()->with('');
+        return back()->with('success', 'Изображение успешно отправлено');
     }
 }
