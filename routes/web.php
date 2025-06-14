@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\TicketPriceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventsSignController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\SuggestionImagesController;
 use App\Http\Controllers\TicketController;
 use App\Models\Event;
 use App\Models\Models3D;
@@ -63,10 +63,10 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function ()
 
     Route::resource('events', EventController::class)->except(['show']);
 
-    Route::get('/admin/gallery', [GalleryController::class, 'adminIndex'])->name('gallery');
-    Route::post('/admin/gallery/update', [GalleryController::class, 'updateGallery'])->name('gallery.update');
-    Route::post('/admin/gallery/reset', [GalleryController::class, 'resetGallery'])->name('gallery.reset');
-    Route::delete('/admin/suggestions/{id}', [GalleryController::class, 'deleteSuggestion'])->name('suggestions.delete');
+    Route::get('/gallery', [GalleryController::class, 'adminIndex'])->name('gallery');
+    Route::post('/gallery/update', [GalleryController::class, 'updateGallery'])->name('gallery.update');
+    Route::get('/gallery/reset', [GalleryController::class, 'resetGallery'])->name('gallery.reset');
+    Route::delete('/suggestions/{id}', [GalleryController::class, 'deleteSuggestion'])->name('suggestions.delete');
 
     Route::get('/reviews', [ReviewController::class, 'indexAdmin'])->name('reviews.index');
     Route::patch('/reviews/{review}', [ReviewController::class, 'updateStatus'])->name('reviews.updateStatus');
@@ -76,9 +76,9 @@ Route::prefix('admin')->name('admin.')->middleware(['admin'])->group(function ()
 
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('/ticket-prices', [\App\Http\Controllers\Admin\TicketPriceController::class, 'edit'])
+    Route::get('/ticket-prices', [TicketPriceController::class, 'edit'])
         ->name('ticket-prices.edit');
-        
-    Route::post('/ticket-prices', [\App\Http\Controllers\Admin\TicketPriceController::class, 'update'])
+
+    Route::post('/ticket-prices', [TicketPriceController::class, 'update'])
         ->name('ticket-prices.update');
 });

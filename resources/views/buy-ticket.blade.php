@@ -16,13 +16,10 @@
                             <!-- Сюда будут добавляться мероприятия -->
                         </div>
                         <span class="add-event">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M12 5v14M5 12h14" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
                             добавить мероприятие
                         </span>
                     </div>
-                    
+
                     <div class="buy-ticket-form">
                         <div class="form-group">
                             <label for="name">
@@ -30,21 +27,21 @@
                                 <input type="text" id="name" placeholder="Иванов Иван Иванович" name="name" required>
                             </label>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="email">
                                 <span>Email</span>
                                 <input type="email" id="email" placeholder="example@mail.ru" name="email" required>
                             </label>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="dateInput">
                                 <span>Дата посещения</span>
                                 <input type="date" id="dateInput" name="date" required>
                             </label>
                         </div>
-                        
+
                         <div class="tickets-wrapper">
                             <h3>Добавить билет</h3>
                             <div class="tickets-btns">
@@ -85,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="tickets-section">
                         <h4>Ваши билеты:</h4>
                         <ul class="tickets">
@@ -187,24 +184,24 @@
             const childBtn = document.getElementById('child-btn');
             const groupBtn = document.getElementById('group-btn');
             const schoolBtn = document.getElementById('school-btn');
-            
+
             const adultTicketsCount = document.getElementById('adultsCount');
             const childTicketsCount = document.getElementById('childrenCount');
             const groupTicketsCount = document.getElementById('groupCount');
             const schoolTicketsCount = document.getElementById('schoolCount');
-            
+
             const tickets = document.querySelector('.tickets');
             const totalPrice = document.getElementById('total-price');
 
             // Получаем текущие цены из базы
             const prices = {
-                adult: { 
-                    weekday: {{ $prices->adult_weekday_price }}, 
-                    weekend: {{ $prices->adult_weekend_price }} 
+                adult: {
+                    weekday: {{ $prices->adult_weekday_price }},
+                    weekend: {{ $prices->adult_weekend_price }}
                 },
-                child: { 
-                    weekday: {{ $prices->child_weekday_price }}, 
-                    weekend: {{ $prices->child_weekend_price }} 
+                child: {
+                    weekday: {{ $prices->child_weekday_price }},
+                    weekend: {{ $prices->child_weekend_price }}
                 },
                 group: {{ $prices->group_price }},
                 school: {{ $prices->school_group_price }},
@@ -232,19 +229,19 @@
             // Обновляем отображение цен
             const updatePricesDisplay = () => {
                 const currentPrices = getCurrentPrices();
-                
+
                 document.querySelectorAll('.adult-ticket-price').forEach(el => {
                     el.textContent = currentPrices.adult + ' руб';
                 });
-                
+
                 document.querySelectorAll('.child-ticket-price').forEach(el => {
                     el.textContent = currentPrices.child + ' руб';
                 });
-                
+
                 document.querySelectorAll('.group-ticket-price').forEach(el => {
                     el.textContent = currentPrices.group + ' руб';
                 });
-                
+
                 document.querySelectorAll('.school-ticket-price').forEach(el => {
                     el.textContent = currentPrices.school + ' руб';
                 });
@@ -255,21 +252,21 @@
                 const currentPrices = getCurrentPrices();
                 const eventsCount = document.querySelectorAll('.event').length;
                 const totalPeople = parseInt(adultTicketsCount.value) + parseInt(childTicketsCount.value);
-                
+
                 // Автоматически применяем групповую скидку если достигнуто минимальное количество
                 if (totalPeople >= prices.minGroup && parseInt(groupTicketsCount.value) === 0) {
                     groupTicketsCount.value = totalPeople;
                     // Обновляем список билетов
                     // Здесь нужно добавить логику для обновления UI
                 }
-                
-                const total = 
+
+                const total =
                     adultTicketsCount.value * currentPrices.adult +
                     childTicketsCount.value * currentPrices.child +
                     groupTicketsCount.value * currentPrices.group +
                     schoolTicketsCount.value * currentPrices.school +
                     eventsCount * 100 * (parseInt(adultTicketsCount.value) + parseInt(childTicketsCount.value) + parseInt(groupTicketsCount.value) + parseInt(schoolTicketsCount.value));
-                
+
                 totalPrice.textContent = total;
             };
 
@@ -278,15 +275,15 @@
                 const template = document.getElementById(`${type}-ticket`);
                 const clone = template.content.cloneNode(true);
                 tickets.appendChild(clone);
-                
+
                 const ticketElement = tickets.lastElementChild;
                 const deleteBtn = ticketElement.querySelector('.delete-ticket');
-                
+
                 deleteBtn.addEventListener('click', () => {
                     // Уменьшаем счетчик соответствующего типа билета
-                    document.getElementById(`${type}Count`).value = 
+                    document.getElementById(`${type}Count`).value =
                         parseInt(document.getElementById(`${type}Count`).value) - 1;
-                    
+
                     ticketElement.remove();
                     updateTotalPrice();
                 });

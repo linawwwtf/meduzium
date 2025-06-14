@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
-use Illuminate\Http\Request;
+use App\Models\SuggestionImage;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Models\SuggestionImage;
 
 class GalleryController extends Controller
 {
@@ -19,16 +19,15 @@ class GalleryController extends Controller
     // Сохранение предложенного фото
     public function storeSuggestion(Request $request): RedirectResponse
     {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+        $data = request()->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $path = $request->file('image')->store('public/suggestions');
-        $publicPath = Storage::url($path);
+        $file = $data['image'];
 
-        SuggestionImage::create([
-            'image_url' => Str::after($publicPath, '/storage'),
-        ]);
+        $filePath = $file->storeAs('suggestions', uniqid() . '.' . $file->getClientOriginalExtension(), 'public');
+
+        SuggestionImage::create(['image_url' => $filePath]);
 
         return back()->with('success', 'Ваше фото успешно отправлено на модерацию!');
     }
@@ -38,25 +37,30 @@ class GalleryController extends Controller
     {
         $gallery = Gallery::orderBy('id')->get();
         $suggestions = SuggestionImage::latest()->get();
-        
+
         return view('admin.suggestions', compact('gallery', 'suggestions'));
     }
 
     // Обновление галереи
     public function updateGallery(Request $request): RedirectResponse
     {
-        $data = $request->validate([
-            'gallery' => 'required|array',
-            'gallery.*.id' => 'required|integer',
-            'gallery.*.image_url' => 'nullable|string',
+        dd($request->all());
+
+        $data = request()->validate([
+            'image_url1' => 'nullable|string',
+            'image_url2' => 'nullable|string',
+            'image_url3' => 'nullable|string',
+            'image_url4' => 'nullable|string',
+            'image_url5' => 'nullable|string',
         ]);
 
-        foreach ($data['gallery'] as $item) {
-            $galleryItem = Gallery::findOrFail($item['id']);
-            
-            if (!empty($item['image_url'])) {
-                $galleryItem->image_url = $item['image_url'];
-                $galleryItem->save();
+        foreach ($data as $key => $value) {
+            if ($value) {
+                $image = Gallery::find($key[-1]);
+
+                $value = 'storage' . Str::after($value, '/storage');
+                $image->image_url = $value;
+                $image->save();
             }
         }
 
@@ -66,18 +70,12 @@ class GalleryController extends Controller
     // Сброс галереи к исходным фото
     public function resetGallery(): RedirectResponse
     {
-        $defaultImages = [
-            11 => 'gallery/photo1.jpg',
-            12 => 'gallery/photo2.jpg',
-            13 => 'gallery/photo3.jpg',
-            14 => 'gallery/photo4.jpg',
-            15 => 'gallery/photo5.jpg',
-        ];
+        foreach ([1, 2, 3, 4, 5] as $value) {
 
-        foreach ($defaultImages as $id => $image) {
-            $galleryItem = Gallery::findOrFail($id);
-            $galleryItem->image_url = $image;
-            $galleryItem->save();
+            $image = Gallery::find($value);
+
+            $image->image_url = "storage/gallery/photo{$value}.jpg";
+            $image->save();
         }
 
         return back()->with('success', 'Галерея сброшена к исходным изображениям!');
@@ -87,10 +85,10 @@ class GalleryController extends Controller
     public function deleteSuggestion($id): RedirectResponse
     {
         $suggestion = SuggestionImage::findOrFail($id);
-        
+
         // Удаляем файл
         Storage::delete('public/' . $suggestion->image_url);
-        
+
         // Удаляем запись
         $suggestion->delete();
 

@@ -12,10 +12,10 @@ class PdfController extends Controller
     {
         $data = request()->validate([
             'order_id' => 'required|exists:orders,id',
-            'events_ids' => 'required'
+            'events_ids' => ''
         ]);
 
-        $eventsIds = $data['events_ids'];
+        $eventsIds = $data['events_ids'] ?? [];
         $eventTitles = [];
         foreach ($eventsIds as $id) {
             $event = Event::findOrFail($id);

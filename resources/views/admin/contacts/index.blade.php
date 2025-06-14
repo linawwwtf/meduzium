@@ -24,7 +24,7 @@
                 </select>
             </div>
         </div>
-        
+
         <div class="reviews">
             @foreach ($contacts as $contact)
                 <div class="review-card">
@@ -50,10 +50,11 @@
                 </div>
             @endforeach
         </div>
-        
-        
+
+
     @endif
 </div>
+@endsection
 
 @section('scripts')
 <script>
@@ -66,7 +67,7 @@
                 // Здесь можно добавить AJAX-запрос для отметки прочитанным
             });
         });
-        
+
         document.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', function() {
                 if(confirm('Удалить это обращение?')) {
@@ -79,5 +80,4 @@
         });
     });
 </script>
-@endsection
 @endsection
