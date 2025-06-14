@@ -56,7 +56,7 @@ class GalleryController extends Controller
             if ($value) {
                 $image = Gallery::find($key[-1]);
 
-                $value = 'storage' . Str::after($value, '/storage');
+                $value = $value;
                 $image->image_url = $value;
                 $image->save();
             }
