@@ -26,11 +26,27 @@ class TicketController extends Controller
             'date' => 'required|date',
             'adult_tickets_count' => 'required|integer|min:1|max:10',
             'child_tickets_count' => 'required|integer|min:0|max:10',
-            'group_tickets_count' => 'sometimes|integer|min:5|max:20',
-            'school_group_count' => 'sometimes|integer|min:10|max:30',
+            'group_tickets_count' => 'nullable|integer|min:0|max:20',
+            'school_group_count' => 'nullable|integer|min:0|max:30',
             'events_id' => 'array',
             'events_id.*' => 'integer|exists:events,id'
         ]);
+
+        if (
+            isset($data['group_tickets_count']) &&
+            $data['group_tickets_count'] > 0 &&
+            $data['group_tickets_count'] < 5
+        ) {
+            return back()->withErrors(['child_tickets_count' => 'Минимум 5 групповых билетов.']);
+        }
+
+        if (
+            isset($data['school_group_count']) &&
+            $data['school_group_count'] > 0 &&
+            $data['school_group_count'] < 10
+        ) {
+            return back()->withErrors(['school_group_count' => 'Минимум 10 школьников в группе.']);
+        }
 
         return DB::transaction(function () use ($data) {
             $dayOfWeek = date('w', strtotime($data['date']));

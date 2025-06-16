@@ -645,14 +645,21 @@
                                     школьный
                                 </button>
                             </div>
-                            <input type="hidden" name="adult_tickets_count" id="adultsCount" value="0">
-                            <input type="hidden" name="child_tickets_count" id="childrenCount" value="0">
+                            <input type="hidden" name="adult_tickets_count" id="adultCount" value="0">
+                            <input type="hidden" name="child_tickets_count" id="childCount" value="0">
                             <input type="hidden" name="group_tickets_count" id="groupCount" value="0">
                             <input type="hidden" name="school_group_count" id="schoolCount" value="0">
                             <div class="price-button-wrapper">
                                 <div class="total-price-wrapper">
                                     Общая сумма: <span><b id="total-price">0</b> руб</span>
                                 </div>
+
+                                @if($errors->any())
+                                    @foreach($errors->all() as $error)
+                                        <span>{{ $error }}</span>
+                                    @endforeach
+                                @endif
+
                                 <button type="submit" class="custom-button">Перейти к оплате</button>
                             </div>
                         </div>
@@ -760,8 +767,8 @@
             const groupBtn = document.getElementById('group-btn');
             const schoolBtn = document.getElementById('school-btn');
 
-            const adultTicketsCount = document.getElementById('adultsCount');
-            const childTicketsCount = document.getElementById('childrenCount');
+            const adultTicketsCount = document.getElementById('adultCount');
+            const childTicketsCount = document.getElementById('childCount');
             const groupTicketsCount = document.getElementById('groupCount');
             const schoolTicketsCount = document.getElementById('schoolCount');
 
@@ -867,7 +874,7 @@
             // Обработчики кнопок
             adultBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (document.querySelectorAll('.ticket').length >= 10) return;
+                if (document.querySelectorAll('.ticket').length >= 20) return;
                 adultTicketsCount.value = parseInt(adultTicketsCount.value) + 1;
                 addTicket('adult');
                 updateTotalPrice();
@@ -875,7 +882,7 @@
 
             childBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (document.querySelectorAll('.ticket').length >= 10) return;
+                if (document.querySelectorAll('.ticket').length >= 20) return;
                 childTicketsCount.value = parseInt(childTicketsCount.value) + 1;
                 addTicket('child');
                 updateTotalPrice();
@@ -883,7 +890,7 @@
 
             groupBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (document.querySelectorAll('.ticket').length >= 10) return;
+                if (document.querySelectorAll('.ticket').length >= 20) return;
                 groupTicketsCount.value = parseInt(groupTicketsCount.value) + 1;
                 addTicket('group');
                 updateTotalPrice();
@@ -891,7 +898,7 @@
 
             schoolBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                if (document.querySelectorAll('.ticket').length >= 10) return;
+                if (document.querySelectorAll('.ticket').length >= 20) return;
                 schoolTicketsCount.value = parseInt(schoolTicketsCount.value) + 1;
                 addTicket('school');
                 updateTotalPrice();
