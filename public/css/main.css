@@ -120,6 +120,30 @@ h1, h2, h3, h4 {
     letter-spacing: 3px;
 }
 
+.section-header__title__dark {
+  font-size: 1.5rem;
+    color: var(--light-color);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+    font-weight: 800;
+    font-family: 'Comfortaa';
+    letter-spacing: 3px;
+    color: #1a237e;
+}
+
+.section-header__title__dark::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
 .section-header__title::after {
     content: '';
     position: absolute;

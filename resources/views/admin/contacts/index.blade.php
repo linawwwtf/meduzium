@@ -11,19 +11,6 @@
             <p>Нет новых обращений</p>
         </div>
     @else
-        <div class="feedback-controls">
-            <div class="search-box">
-                <input type="text" placeholder="Поиск...">
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="filter-box">
-                <select>
-                    <option>Все обращения</option>
-                    <option>Новые</option>
-                    <option>Просмотренные</option>
-                </select>
-            </div>
-        </div>
 
         <div class="reviews">
             @foreach ($contacts as $contact)

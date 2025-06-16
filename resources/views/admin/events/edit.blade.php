@@ -246,18 +246,6 @@
                     </select>
                 </div>
                 
-                <div class="form-group">
-                    <label>Дата и время начала</label>
-                    <input type="datetime-local" name="start_date" class="form-control" 
-                           value="{{ old('start_date', $event->start_date->format('Y-m-d\TH:i')) }}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Дата и время окончания (необязательно)</label>
-                    <input type="datetime-local" name="end_date" class="form-control" 
-                           value="{{ old('end_date', $event->end_date ? $event->end_date->format('Y-m-d\TH:i') : '') }}">
-                </div>
-                
                 <div class="btn-group">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Сохранить изменения

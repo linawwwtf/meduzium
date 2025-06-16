@@ -26,8 +26,8 @@ class TicketController extends Controller
             'date' => 'required|date',
             'adult_tickets_count' => 'required|integer|min:1|max:10',
             'child_tickets_count' => 'required|integer|min:0|max:10',
-            'group_tickets_count' => 'sometimes|integer|min:0|max:10',
-            'school_group_count' => 'sometimes|integer|min:0|max:10',
+            'group_tickets_count' => 'sometimes|integer|min:5|max:20',
+            'school_group_count' => 'sometimes|integer|min:10|max:30',
             'events_id' => 'array',
             'events_id.*' => 'integer|exists:events,id'
         ]);

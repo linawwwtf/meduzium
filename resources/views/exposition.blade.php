@@ -17,11 +17,12 @@
     <div class="all-exposition">
         <div class="about-ex">
             <div class="container">
-                <div class="underline">
-                    <h3 class="title">Разнообразие медуз</h3>
-                </div>
-                <p class="about-text">На этой выставке вы познакомитесь с более чем 20 различными видами медуз, каждую
-                    из которых <br> мы представляем с подробной информацией о её среде обитания и особенностях.
+                <div class="section-header">
+                <h2 class="section-header__title__dark">Разнообразие медуз</h2>
+                <div class="section-header__divider"></div>
+            </div>
+                <p class="about-text">На этой выставке вы познакомитесь с множеством видом медуз, некоторые
+                    из которых мы представляем с подробной информацией о её среде обитания и особенностях.
                 </p> <br>
                 <p class="about-text"><span class="cycle-name">Вы увидите: </span></p>
 
@@ -102,40 +103,8 @@
                             <button class="custom-button more-button" data-jellyfish-index="2">Подробнее</button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="jellyfish-cycle">
-            <div class="container">
-                <div class="underline">
-                    <h3 class="title">Жизненные циклы медуз</h3>
-                </div>
-
-                <div class="cycle-container">
-                    <p class="cycle-text">В этой части экспозиции вы сможете узнать о том,<br> как медузы проходят все
-                        стадии своего<br> жизненного цикла.</p>
-                    <p class="cycle-text">Выставка включает:<br><span
-                            class="cycle-name">--- Инфографики и модели:</span> Наглядные схемы, показывающие этапы
-                        развития медуз от<br> планктона до взрослых особей.<br><span class="cycle-name">--- Видеопрезентации:</span>
-                        Увлекательные ролики, рассказывающие о процессах<br> размножения и миграции медуз.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="rare-jellyfishes">
-            <div class="container">
-                <div class="underline">
-                    <h3 class="title">Редкие виды и их особенности</h3>
-                </div>
-
-                <p class="about-text">Погрузитесь в невероятный мир редких видов медуз, которые встречаются на Земле.
-                    Узнайте об<br> их уникальных характеристиках и условиях обитания.
-                </p> <br>
-                <p class="about-text"><span class="cycle-name">Вы увидите: </span></p>
-
-                <div class="jellyfishes">
-                    <div class="jellyfish">
+<div class="jellyfish">
                         <model-viewer src="{{ asset($models[3]->model_url) }}" ar
                                       ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral"
                                       poster="poster.webp" shadow-intensity="1" camera-orbit="-228.1deg 85.12deg 2.064m"
@@ -209,7 +178,42 @@
                             <button class="custom-button more-button" data-jellyfish-index="5">Подробнее</button>
                         </div>
                     </div>
+
+
                 </div>
+            </div>
+        </div>
+
+        <div class="jellyfish-cycle">
+            <div class="container">
+                <div class="underline">
+                    <h3 class="title">Жизненные циклы медуз</h3>
+                </div>
+
+                <div class="cycle-container">
+                    <p class="cycle-text">В этой части экспозиции вы сможете узнать о том,<br> как медузы проходят все
+                        стадии своего<br> жизненного цикла.</p>
+                    <p class="cycle-text">Выставка включает:<br><span
+                            class="cycle-name">--- Инфографики и модели:</span> Наглядные схемы, показывающие этапы
+                        развития медуз от<br> планктона до взрослых особей.<br><span class="cycle-name">--- Видеопрезентации:</span>
+                        Увлекательные ролики, рассказывающие о процессах<br> размножения и миграции медуз.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="rare-jellyfishes">
+            <div class="container">
+                <div class="underline">
+                    <h3 class="title">Редкие виды и их особенности</h3>
+                </div>
+
+                <p class="about-text">Погрузитесь в невероятный мир редких видов медуз, которые встречаются на Земле.
+                    Узнайте об<br> их уникальных характеристиках и условиях обитания.
+                </p> <br>
+                <p class="about-text"><span class="cycle-name">Вы увидите: </span></p>
+
+                <div class="jellyfishes">
+                    </div>
 
             </div>
         </div>

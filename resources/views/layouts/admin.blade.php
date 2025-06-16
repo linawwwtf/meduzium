@@ -24,9 +24,6 @@
                 <a href="{{ route('admin.events.index') }}" class="{{ request()->routeIs('admin.events') ? 'active' : '' }}">
                     <i class="fas fa-calendar-alt"></i> Мероприятия
                 </a>
-                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.users') ? 'active' : '' }}">
-                    <i class="fas fa-users"></i> Пользователи
-                </a>
                 <a href="{{ route('admin.reviews.index') }}" class="{{ request()->routeIs('admin.reviews') ? 'active' : '' }}">
                     <i class="fas fa-comment-alt"></i> Отзывы
                 </a>
@@ -42,7 +39,7 @@
             </nav>
             
             <div class="admin-logout">
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="GET">
                     @csrf
                     <button type="submit">
                         <i class="fas fa-sign-out-alt"></i> Выйти

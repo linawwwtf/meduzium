@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('content')
 <div class="container">
@@ -42,7 +42,9 @@
             <input type="number" name="school_group_price" value="{{ $prices->school_group_price }}" class="form-control">
         </div>
         
-        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        <button type="submit" class="filter-btn">
+    <i class="fas fa-filter"></i> Применить
+</button>
     </form>
 </div>
 @endsection

@@ -215,7 +215,7 @@
 </head>
 <body>
     <div class="ticket-container">
-        <div class="watermark">Медузариум</div>
+        
 
         <div class="ticket-header">
             <h2>Медузариум</h2>

@@ -227,14 +227,6 @@
                     </div>
                 </div>
                 
-                <!-- Карточка пользователей -->
-                <div class="admin-card card-success">
-                    <div class="card-content">
-                        <i class="fas fa-users card-icon"></i>
-                        <h3 class="card-title">Пользователи</h3>
-                        <a href="/" class="card-button">Управление</a>
-                    </div>
-                </div>
                 
                 <!-- Карточка отзывов -->
                 <div class="admin-card card-info">

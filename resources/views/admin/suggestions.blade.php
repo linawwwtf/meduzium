@@ -216,6 +216,43 @@
             transform: translateY(-3px);
         }
 
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            border-radius: 20px;
+        }
+
+        .btn-center {
+            display: flex;
+            justify-content: center;
+            margin-top: 3%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-medium);
+            color: white;
+            box-shadow: 0 2px 8px rgba(26, 35, 126, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.4);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
         /* Сообщения */
         .message {
             padding: 15px;
@@ -319,6 +356,12 @@
                     </button>
                     <a href="{{ route('admin.gallery.reset') }}" class="gallery-button gallery-button--secondary">
                         <i class="fas fa-undo"></i> Сбросить
+                    </a>
+
+                </div>
+                <div class="btn-center">
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Назад
                     </a>
                 </div>
             </form>

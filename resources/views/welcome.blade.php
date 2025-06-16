@@ -82,17 +82,6 @@
                 </div>
 
                 <div class="filter-group">
-                    <label for="date">Дата:</label>
-                    <select name="date" id="date" class="filter-select">
-                        <option value="">Все даты</option>
-                        <option value="today" {{ $filters['date'] == 'today' ? 'selected' : '' }}>Сегодня</option>
-                        <option value="week" {{ $filters['date'] == 'week' ? 'selected' : '' }}>На этой неделе</option>
-                        <option value="month" {{ $filters['date'] == 'month' ? 'selected' : '' }}>В этом месяце</option>
-                        <option value="future" {{ $filters['date'] == 'future' ? 'selected' : '' }}>Предстоящие</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
                     <label for="sort">Сортировка:</label>
                     <select name="sort" id="sort" class="filter-select">
                         <option value="newest" {{ $filters['sort'] == 'newest' ? 'selected' : '' }}>Сначала новые</option>
@@ -118,16 +107,7 @@
                         </div>
                         <h3 class="event-card__title">{{ $event->title }}</h3>
                         <div class="event-card__date">
-                            {{ $event->start_date->format('d.m.Y') }}
-                            @if($event->end_date)
-                                - {{ $event->end_date->format('d.m.Y') }}
-                            @endif
-                        </div>
-                        <div class="event-card__time">
-                            {{ $event->start_date->format('H:i') }}
-                            @if($event->end_date)
-                                - {{ $event->end_date->format('H:i') }}
-                            @endif
+                            {{ $event->description }}
                         </div>
                         <a href="/buy-ticket?event_id={{ $event->id }}" class="btn btn--small">Записаться</a>
                     </div>
@@ -292,9 +272,9 @@
                     <div class="review-card__rating">
                         @for($i = 1; $i <= 5; $i++)
                             @if($i <= $review->rating)
-                                <i class="fas fa-star">!</i>
+                                <i class="fas fa-star">★</i>
                             @else
-                                <i class="far fa-star">!</i>
+                                <i class="far fa-star">☆</i>
                             @endif
                         @endfor
                     </div>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
     <title>Медузиум — Предложите фото</title>
     <style>
         /* Основные стили страницы */
@@ -20,6 +21,60 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+
+        header {
+            background: rgba(26, 35, 126, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            font-family: 'Comfortaa', cursive;
+            font-weight: 700;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            color: var(--primary-medium);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
 
         /* Стили секции */
         .all {
@@ -195,6 +250,20 @@
     </style>
 </head>
 <body>
+    <header>
+        <div class="container nav-container">
+            <a href="/" class="logo">
+                <img src="{{ asset('img/logo.svg') }}" alt="Медузиум">
+                <span>Медузиум</span>
+            </a>
+            <nav>
+                <a href="/">Главная</a>
+                <a href="/exposition">Экспозиции</a>
+                <a href="/about">О нас</a>
+                <a href="/buy-ticket">Купить билет</a>
+            </nav>
+        </div>
+    </header>
     <section class="all">
         <div class="container">
             <div class="add-suggestion__wrapper">

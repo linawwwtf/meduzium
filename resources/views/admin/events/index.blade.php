@@ -283,6 +283,11 @@
         <div class="admin-card">
             <div class="card-header">
                 <div>
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </a>
+                </div>
+            <div>
                     <a href="{{ route('admin.events.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Добавить мероприятие
                     </a>
@@ -290,16 +295,6 @@
             </div>
             
             <div class="card-body">
-                <div class="mb-3">
-                    <form method="GET" class="form-inline">
-                        <select name="type" class="form-control mr-2" onchange="this.form.submit()">
-                            <option value="">Все типы</option>
-                            <option value="exhibition" {{ request('type') == 'exhibition' ? 'selected' : '' }}>Выставки</option>
-                            <option value="masterclass" {{ request('type') == 'masterclass' ? 'selected' : '' }}>Мастер-классы</option>
-                            <option value="lecture" {{ request('type') == 'lecture' ? 'selected' : '' }}>Лекции</option>
-                        </select>
-                    </form>
-                </div>
                 
                 <div class="table-responsive">
                     <table class="table table-striped">

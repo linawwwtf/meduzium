@@ -240,6 +240,12 @@
                         <i class="fas fa-save"></i> Сохранить мероприятие
                     </button>
                 </div>
+
+                <div>
+                    <a href="/admin/events" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </a>
+                </div>
             </form>
         </div>
     </div>
