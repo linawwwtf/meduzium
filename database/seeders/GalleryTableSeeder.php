@@ -12,7 +12,7 @@ class GalleryTableSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach ([1, 2, 3, 4, 5] as $index) {
+        foreach ([1, 2, 3, 4, 5, 6] as $index) {
             Gallery::create([
                 'image_url' => "storage/gallery/photo{$index}.jpg"
             ]);

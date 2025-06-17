@@ -270,19 +270,19 @@ justify-content: center;
             justify-content: center;
             margin-top: 3%;
         }
-        
+
         .btn-primary {
             background-color: var(--primary-medium);
             color: white;
             box-shadow: 0 2px 8px rgba(26, 35, 126, 0.3);
         }
-        
+
         .btn-primary:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(26, 35, 126, 0.4);
         }
-        
+
         .btn-danger {
             background-color: var(--danger);
             color: white;
@@ -370,7 +370,7 @@ justify-content: center;
                   class="gallery-form">
                 @csrf
                 <ul class="gallery-grid">
-                    @foreach([0,1,4,2,3] as $index)
+                    @foreach([0,1,2,3,4,5] as $index)
                         <li class="gallery-item">
                             <div class="upload-container">
                                 <input type="file" class="file-input" accept="image/*" name="image{{ $index+1 }}">
