@@ -230,6 +230,41 @@
             border-radius: 20px;
         }
 
+        .custom-button {
+    background: linear-gradient(135deg, #5e83e2, #9747FF);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: 'Comfortaa', sans-serif;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.btn-center {
+    display: flex;
+    justify-content: center;
+}
+
+.btns {
+    display: flex;
+}
+
+.custom-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(94, 131, 226, 0.4);
+  background: linear-gradient(135deg, #4a6fc7, #823de8);
+}
+
         .btn-center {
             display: flex;
             justify-content: center;
@@ -351,7 +386,7 @@
                 </ul>
 
                 <div class="gallery-actions">
-                    <button type="submit" class="gallery-button gallery-button--primary">
+                    <button type="submit" class="custom-button">
                         <i class="fas fa-save"></i> Сохранить изменения
                     </button>
                     <a href="{{ route('admin.gallery.reset') }}" class="gallery-button gallery-button--secondary">
@@ -360,7 +395,7 @@
 
                 </div>
                 <div class="btn-center">
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.dashboard') }}" class="custom-button">
                         <i class="fas fa-arrow-left"></i> Назад
                     </a>
                 </div>

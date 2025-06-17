@@ -7,7 +7,9 @@
         <div class="container">
             <div class="reviews">
                 <h2>Новые отзывы</h2>
-                <a href="{{ route('admin.reviews.archive') }}">Архивные отзывы</a>
+                <a href="{{ route('admin.reviews.archive') }}" class="custom-button">
+    <i class="fas fa-archive"></i> Архивные отзывы</a>
+
                 @foreach ($reviews as $review)
                     <div class="review-card">
                         <h3>{{$review->name}}</h3>
@@ -23,17 +25,21 @@
                             <form action="{{ route('admin.reviews.updateStatus', $review->id) }}" method="POST">
                                 @csrf
                                 @method("PATCH")
-                                    <button class="btn">Проверен</button>
+                                    <button class="custom-button">Проверен</button>
                             </form>
+
                             <form action="{{ route('admin.reviews.delete', $review->id) }}" method="POST">
                                 @csrf
                                 @method("DELETE")
-                                    <button class="btn">Удалить</button>
+                                    <button class="custom-button">Удалить</button>
                             </form>
                         </div>
                     </div>
                 @endforeach
-                {{ $reviews->links() }}
+                <div class="admin-pagination">
+                    {{ $reviews->links() }}
+                </div>
+                
             </div>
         </div>
     </section>

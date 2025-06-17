@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оставить отзыв | Медузиум</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Comfortaa:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+@extends('layouts.user')
+@section('title', 'Оставить отзыв')
+
+@section('content')
     <style>
         :root {
             --primary-dark: #1a237e;
@@ -23,8 +19,8 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            font-family: 'Comfortaa', cursive;
+            background: #1a237e;;
             color: var(--text-light);
             margin: 0;
             padding: 0;
@@ -38,7 +34,7 @@
         }
 
         .all {
-            padding: 80px 0;
+            padding: 0;
         }
 
         h1 {
@@ -133,8 +129,8 @@
             transform: scale(1.1);
         }
 
-        .btn {
-            background: var(--primary-medium);
+        .custom-button {
+           background: linear-gradient(135deg, #5e83e2, #9747FF);
             color: white;
             border: none;
             padding: 15px 25px;
@@ -145,14 +141,19 @@
             transition: all 0.3s ease;
             margin-top: 10px;
             text-align: center;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Comfortaa', cursive;
         }
 
-        .btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+.btn-center {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(94, 131, 226, 0.4);
+  background: linear-gradient(135deg, #4a6fc7, #823de8);
+}
 
         @media (max-width: 768px) {
             .all {
@@ -210,7 +211,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <button type="submit" class="btn">Отправить</button>
+                    <button type="submit" class="custom-button">Отправить</button>
                 </form>
             </div>
         </div>
@@ -260,5 +261,4 @@
             });
         });
     </script>
-</body>
-</html>
+@endsection

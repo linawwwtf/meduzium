@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Comfortaa:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Купить билет | Медузиум</title>
      <style>
         :root {
@@ -19,8 +20,8 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            font-family: 'Comfortaa', cursive;
+            background: #1a237e;
             color: var(--text-light);
             margin: 0;
             padding: 0;
@@ -159,7 +160,7 @@
         }
 
         .event-additional-price {
-            color: var(--primary-medium);
+            color: #00e5ff;
             font-size: 0.9rem;
         }
 
@@ -179,20 +180,33 @@
             stroke: var(--primary-light);
         }
 
-        .add-event {
-            color: var(--primary-medium);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
+        .add-event i {
+    margin-right: 8px;
+}
 
-        .add-event:hover {
-            color: var(--primary-light);
-            text-decoration: underline;
-        }
+
+.add-event {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+    user-select: none;
+    text-decoration: none;
+}
+
+.add-event:hover {
+    transform: translateY(-2px);
+}
+
+.add-event:active {
+
+    transform: translateY(0);
+}
+
 
         .buy-ticket-form {
             display: flex;
@@ -286,7 +300,7 @@
         }
 
         .total-price-wrapper span {
-            color: var(--primary-medium);
+            color: #00e5ff;
             font-weight: 500;
         }
 
@@ -322,7 +336,7 @@
 
         .ticket-price {
             font-weight: 500;
-            color: var(--primary-medium);
+            color: #00e5ff;
         }
 
         .delete-ticket {
@@ -439,32 +453,35 @@
 
         .event-price {
             margin-top: 10px;
-            color: var(--primary-medium);
+            color: #00e5ff;
             font-weight: 500;
         }
 
         .custom-button {
-            background: var(--primary-medium);
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #5e83e2, #9747FF);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 1.1rem;
+            border-radius: 50px;
+            font-family: 'Comfortaa', cursive;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(94, 131, 226, 0.3);
             display: inline-flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
         }
 
-        .custom-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+.custom-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(94, 131, 226, 0.4);
+  background: linear-gradient(135deg, #4a6fc7, #823de8);
+}
 
         .custom-button i {
             font-size: 1.2rem;
@@ -590,9 +607,8 @@
                         <div class="events">
                             <!-- Сюда будут добавляться мероприятия -->
                         </div>
-                        <span class="add-event">
-                            добавить мероприятие
-                        </span>
+                        <span class="add-event"><i class="fas fa-plus"></i> Добавить мероприятие</span>
+
                     </div>
 
                     <div class="buy-ticket-form">

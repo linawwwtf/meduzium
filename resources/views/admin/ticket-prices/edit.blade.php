@@ -42,7 +42,7 @@
             <input type="number" name="school_group_price" value="{{ $prices->school_group_price }}" class="form-control">
         </div>
         
-        <button type="submit" class="filter-btn">
+        <button type="submit" class="custom-button">
     <i class="fas fa-filter"></i> Применить
 </button>
     </form>

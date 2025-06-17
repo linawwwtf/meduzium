@@ -23,6 +23,6 @@ class ContactController extends Controller
 
         Contact::create($data);
 
-        return redirect()->back();
+        return back()->with('success', 'Спасибо! Ваше сообщение отправлено.');
     }
 }

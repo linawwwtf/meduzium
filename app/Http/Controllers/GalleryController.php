@@ -50,6 +50,7 @@ class GalleryController extends Controller
             'image_url3' => 'nullable|string',
             'image_url4' => 'nullable|string',
             'image_url5' => 'nullable|string',
+            'image_url6' => 'nullable|string',
         ]);
 
         foreach ($data as $key => $value) {
@@ -68,7 +69,7 @@ class GalleryController extends Controller
     // Сброс галереи к исходным фото
     public function resetGallery(): RedirectResponse
     {
-        foreach ([1, 2, 3, 4, 5] as $value) {
+        foreach ([1, 2, 3, 4, 5, 6] as $value) {
 
             $image = Gallery::find($value);
 

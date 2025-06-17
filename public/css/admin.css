@@ -23,6 +23,41 @@ body {
     min-height: 100vh;
 }
 
+.custom-button {
+    background: linear-gradient(135deg, #5e83e2, #9747FF);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+justify-content: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: 'Comfortaa', sans-serif;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.btn-center {
+    display: flex;
+    justify-content: center;
+}
+
+.btns {
+    display: flex;
+}
+
+.custom-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(94, 131, 226, 0.4);
+  background: linear-gradient(135deg, #4a6fc7, #823de8);
+}
+
 .admin-container {
     display: flex;
     min-height: 100vh;
@@ -194,14 +229,13 @@ body {
 }
 
 .review-card span {
-    display: block;
     margin-bottom: 10px;
-    color: var(--primary-medium);
+    color: var(--warning-color);
     font-weight: 500;
 }
 
 .review-card p {
-    margin: 0;
+    margin-top: 2%;
     color: var(--text-light);
     line-height: 1.6;
 }
@@ -555,3 +589,51 @@ body {
         padding: 15px;
     }
 }
+
+
+.admin-pagination {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination {
+        display: flex;
+        gap: 10px;
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .pagination li {
+        display: inline-block;
+    }
+
+    .pagination li a,
+    .pagination li span {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 6px;
+        background-color: #f0f0f0;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .pagination li a:hover {
+        background-color: #dbe4ff;
+    }
+
+    .pagination li.active span {
+        background-color: #5e83e2;
+        color: white;
+        border-color: #5e83e2;
+        font-weight: bold;
+    }
+
+    .pagination li.disabled span {
+        background-color: #e0e0e0;
+        color: #999;
+        pointer-events: none;
+    }

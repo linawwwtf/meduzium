@@ -91,9 +91,9 @@
                     </select>
                 </div>
 
-                <button type="submit" class="btn btn--small">Применить</button>
+                <button type="submit" class="custom-button">Применить</button>
                 @if(request()->anyFilled(['type', 'date', 'sort']))
-                <a href="{{ route('home') }}" class="btn btn--small btn--outline">Сбросить</a>
+                <a href="{{ route('home') }}#events-section" class="custom-button">Сбросить</a>
             @endif
             </form>
         </div>
@@ -109,7 +109,7 @@
                         <div class="event-card__date">
                             {{ $event->description }}
                         </div>
-                        <a href="/buy-ticket?event_id={{ $event->id }}" class="btn btn--small">Записаться</a>
+                        <a href="/buy-ticket?event_id={{ $event->id }}" class="custom-button">Записаться</a>
                     </div>
                 @endforeach
             </div>
@@ -205,12 +205,11 @@
                 @foreach($gallery as $index => $image)
                     <div class="gallery-item {{ $index === 0 ? 'active' : '' }}" 
                         style="background-image: url('{{ asset($image->image_url) }}')">
-                        <div class="gallery-caption">{{ $image->caption ?? 'Медузариум' }}</div>
                     </div>
                 @endforeach
             </div>
             <div class="btn-center">
-                <a href="{{ route('suggest-image') }}" class="custom-button more-button">Отправить свое фото</a>
+                <a href="{{ route('suggest-image') }}" class="custom-button">Отправить свое фото</a>
             </div>
             
         </div>
@@ -231,7 +230,7 @@
                 <div class="pricing-card__description">Взрослый билет</div>
                 <div class="pricing-card__price pricing-card__price--secondary">{{ $prices->child_weekday_price }} ₽</div>
                 <div class="pricing-card__description">Детский (3-12 лет)</div>
-                <a href="/buy-ticket" class="btn btn--small">Купить</a>
+                <a href="/buy-ticket" class="custom-button">Купить</a>
             </div>
             
             <div class="pricing-card pricing-card--featured">
@@ -241,7 +240,7 @@
                 <div class="pricing-card__description">Взрослый билет</div>
                 <div class="pricing-card__price pricing-card__price--secondary">{{ $prices->child_weekend_price }} ₽</div>
                 <div class="pricing-card__description">Детский (3-12 лет)</div>
-                <a href="/buy-ticket" class="btn btn--small">Купить</a>
+                <a href="/buy-ticket" class="custom-button">Купить</a>
             </div>
             
             <div class="pricing-card">
@@ -250,7 +249,7 @@
                 <div class="pricing-card__description">От {{ $prices->group_min_people }} человек</div>
                 <div class="pricing-card__price pricing-card__price--secondary">{{ $prices->school_group_price }} ₽</div>
                 <div class="pricing-card__description">Школьные группы</div>
-                <a href="/buy-ticket" class="btn btn--small">Забронировать</a>
+                <a href="/buy-ticket" class="custom-button">Купить</a>
             </div>
         </div>
     </div>
@@ -272,9 +271,9 @@
                     <div class="review-card__rating">
                         @for($i = 1; $i <= 5; $i++)
                             @if($i <= $review->rating)
-                                <i class="fas fa-star">★</i>
+                                <i class="fas fa-star"></i>
                             @else
-                                <i class="far fa-star">☆</i>
+                                <i class="far fa-star"></i>
                             @endif
                         @endfor
                     </div>
@@ -290,7 +289,7 @@
         </div>
         
         <div class="reviews-actions">
-            <a href="{{ route('reviews.create') }}" class="btn btn--primary">
+            <a href="{{ route('reviews.create') }}" class="custom-button">
                 <i class="fas fa-pen"></i> Оставить отзыв
             </a>
         </div>
@@ -409,8 +408,8 @@
             
             <div class="contacts-flex">
                 <div class="contact-form-wrapper">
-                    <h3 class="contact-form-title">Обратная связь</h3>
-                    <form action="{{ route('contact.main-page') }}" method="POST" class="contact-form">
+                    <h3 class="contact-form-title">Остались вопросы? </h3>
+                    <form id="contactForm" action="{{ route('contact.main-page') }}" method="POST" class="contact-form">
                         @csrf
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Ваше имя" required>
@@ -422,17 +421,38 @@
                             <textarea id="message" name="message" rows="4" placeholder="Сообщение"></textarea>
                         </div>
                         <div class="btn-center">
-                            <button type="submit" class="btn btn--primary">
+                            <button type="submit" class="custom-button">
                             <span>Отправить</span>
                         </button>
                         </div>
-                        
+                        <div id="formMessage" class="form-success-message" style="display: none;"></div>
+
                     </form>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+<style>
+    .form-success-message {
+    margin-top: 20px;
+    padding: 15px 20px;
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 6px solid #28a745;
+    border-radius: 4px;
+    font-weight: 500;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+
 @section('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -494,5 +514,44 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const messageBox = document.getElementById('formMessage');
+
+    fetch(form.action, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        },
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            messageBox.style.display = 'block';
+            messageBox.innerText = 'Спасибо! Ваше сообщение отправлено.';
+            form.reset();
+            setTimeout(() => messageBox.style.display = 'none', 5000);
+        } else {
+            return response.json().then(data => {
+                throw new Error(data.message || 'Ошибка отправки');
+            });
+        }
+    })
+    .catch(error => {
+        messageBox.style.display = 'block';
+        messageBox.style.backgroundColor = '#f8d7da';
+        messageBox.style.color = '#721c24';
+        messageBox.innerText = error.message;
+        setTimeout(() => messageBox.style.display = 'none', 5000);
+    });
+});
+</script>
+
 
 @endsection

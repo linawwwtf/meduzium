@@ -19,8 +19,8 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            font-family: 'Comfortaa', cursive;
+            background: #1a237e;
             color: var(--text-light);
             margin: 0;
             padding: 0;
@@ -141,7 +141,7 @@
         }
 
         .custom-button {
-            background: var(--primary-medium);
+            background: linear-gradient(135deg, #5e83e2, #9747FF);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -154,7 +154,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Comfortaa', cursive;
         }
 
         .custom-button:hover {

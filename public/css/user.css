@@ -14,7 +14,7 @@
 /* Базовые стили */
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+    background: #1a237e;
     color: var(--text-light);
     margin: 0;
     padding: 0;
@@ -83,7 +83,7 @@ nav a:hover {
 
 /* Основное содержимое страниц */
 .all {
-    padding: 80px 0;
+    padding: 20px 0;
 }
 
 .all h1 {
@@ -134,7 +134,7 @@ nav a:hover {
 }
 
 .custom-button {
-    background: var(--primary-medium);
+    background: linear-gradient(135deg, #5e83e2, #9747FF);
     color: white;
     border: none;
     padding: 15px 30px;
@@ -145,9 +145,10 @@ nav a:hover {
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+justify-content: center;
     gap: 10px;
     text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Comfortaa', sans-serif;
 }
 
 .btn-center {
@@ -156,9 +157,9 @@ nav a:hover {
 }
 
 .custom-button:hover {
-    background: var(--primary-dark);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(94, 131, 226, 0.4);
+  background: linear-gradient(135deg, #4a6fc7, #823de8);
 }
 
 .custom-button i {
