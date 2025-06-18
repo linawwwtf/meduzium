@@ -44,23 +44,44 @@ class GalleryController extends Controller
     // Обновление галереи
     public function updateGallery(Request $request): RedirectResponse
     {
-        $data = request()->validate([
+        // Validate input data
+        $data = $request->validate([
             'image_url1' => 'nullable|string',
             'image_url2' => 'nullable|string',
             'image_url3' => 'nullable|string',
             'image_url4' => 'nullable|string',
             'image_url5' => 'nullable|string',
             'image_url6' => 'nullable|string',
+            'image1' => 'nullable|image|max:5120', // 5MB max
+            'image2' => 'nullable|image|max:5120',
+            'image3' => 'nullable|image|max:5120',
+            'image4' => 'nullable|image|max:5120',
+            'image5' => 'nullable|image|max:5120',
+            'image6' => 'nullable|image|max:5120',
         ]);
 
-        foreach ($data as $key => $value) {
-            if ($value) {
-                $image = Gallery::find($key[-1]);
+        // Process each gallery slot (1 to 6)
+        for ($i = 1; $i <= 6; $i++) {
+            $imageKey = "image$i";
+            $urlKey = "image_url$i";
+            $gallery = Gallery::find($i) ?? new Gallery(['id' => $i]);
 
-                $value = $value;
-                $image->image_url = $value;
-                $image->save();
+            // Handle file upload
+            if ($request->hasFile($imageKey)) {
+                $file = $request->file($imageKey);
+                $path = $file->store('gallery', 'public');
+                $gallery->image_url = 'storage/'. $path;
             }
+            // Handle URL from input (e.g., from drag-and-drop suggestions)
+            elseif (!empty($data[$urlKey])) {
+                $gallery->image_url = $data[$urlKey];
+            }
+            // If neither file nor URL is provided, skip
+            else {
+                continue;
+            }
+
+            $gallery->save();
         }
 
         return back()->with('success', 'Галерея успешно обновлена!');

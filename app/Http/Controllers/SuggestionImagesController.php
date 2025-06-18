@@ -20,7 +20,7 @@ class SuggestionImagesController extends Controller
     public function create(): RedirectResponse
     {
         $data = request()->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $file = $data['image'];
